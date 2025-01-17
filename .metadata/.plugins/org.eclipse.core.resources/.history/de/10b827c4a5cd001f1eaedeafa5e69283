@@ -1,0 +1,27 @@
+package com.controller;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+
+import com.model.Address;
+import com.model.Batsman;
+import com.model.Bowler;
+
+public class Client1 {
+public static void main(String[] args) {
+	
+
+	Configuration c= new Configuration();
+	SessionFactory sf=c.configure().buildSessionFactory();
+	Session s=sf.openSession();
+	Transaction t=s.beginTransaction();
+	Batsman b=new Batsman(101, "rohitshrama", 20, new Address("main road", "india", "latur", "413512"), 1000);
+	Bowler b1=new Bowler(102, "virajkholi", 30, new Address("main road", "pak", "gondia", "413512"), 2000);
+   s.save(b);
+    s.save(b1);
+    t.commit();
+    s.close();
+}
+}

@@ -1,0 +1,50 @@
+package com.example.sport;
+
+import javax.persistence.DiscriminatorValue;
+import javax.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("Bowler")
+public class Bowler extends Player {
+	
+	private int numWickets;
+	
+	
+
+	public Bowler() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+	public Bowler(int numWickets) {
+		super();
+		this.numWickets = numWickets;
+	}
+
+
+
+	public Bowler(int playerId, String playerName, int numMatch, Address resAddr) {
+		super(playerId, playerName, numMatch, resAddr);
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getNumWickets() {
+		return numWickets;
+	}
+
+	public void setNumWickets(int numWickets) {
+		this.numWickets = numWickets;
+	}
+
+
+
+	@Override
+	public String toString() {
+		return "Bowler [numWickets=" + numWickets + "]";
+	}
+	
+	
+	
+}

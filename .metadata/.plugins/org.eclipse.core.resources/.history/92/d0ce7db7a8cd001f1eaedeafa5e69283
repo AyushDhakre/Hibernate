@@ -1,0 +1,22 @@
+package com.model;
+
+import java.util.Date;
+
+import javax.persistence.Embedded;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Inheritance;
+import javax.persistence.InheritanceType;
+
+@Entity
+@Inheritance(strategy = InheritanceType.JOINED)
+public abstract class Student {
+    @Id
+    private int rollno;
+    private String studentName;
+    private Date admissionDate;
+    @Embedded
+    private Address perAddr;
+
+    // Getters and Setters
+}

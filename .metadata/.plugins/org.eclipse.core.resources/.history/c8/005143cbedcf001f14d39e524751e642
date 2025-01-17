@@ -1,0 +1,43 @@
+package com.controller;
+
+import org.hibernate.Query;
+import org.hibernate.SessionFactory;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.classic.Session;
+
+import java.util.List;
+
+public class Client2 {
+
+    public static void main(String[] args) {
+        // Configure Hibernate and open a session
+        Configuration c = new Configuration();
+        SessionFactory sf = c.configure().buildSessionFactory();
+        Session s = sf.openSession();
+
+        try {
+            // Use the correct entity name in the HQL query
+            String hql = "select giftName from Gift"; // Use "Gift", not "gift"
+            Query q = s.createQuery(hql);
+
+            // Execute the query and get the result list
+            List<String> lst = q.list();
+
+            // Check if the list is empty
+            if (lst.isEmpty()) {
+                System.out.println("No gifts found in the database.");
+            } else {
+                System.out.println("Gift names are:");
+                for (String str : lst) {
+                    System.out.println(str);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Close the session and session factory
+            s.close();
+            sf.close();
+        }
+    }
+}

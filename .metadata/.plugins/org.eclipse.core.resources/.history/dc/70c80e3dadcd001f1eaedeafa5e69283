@@ -1,0 +1,7 @@
+package com.model;
+
+public class PrimaryStudent extends Student {
+	
+	private String grade;
+	
+}
