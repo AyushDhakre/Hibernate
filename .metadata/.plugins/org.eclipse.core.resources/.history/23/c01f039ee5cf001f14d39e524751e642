@@ -1,0 +1,36 @@
+package com.controller;
+
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.classic.Session;
+
+import com.model.Gift;
+
+public class Client1 {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		SessionFactory factory = new Configuration().configure().buildSessionFactory();
+        Session session = factory.openSession();
+        Transaction tx = session.beginTransaction();
+        
+        session.save(new Gift("Smartphone", "Electronics", 25000));
+        session.save(new Gift("Laptop", "Electronics", 50000));
+        session.save(new Gift("Toy Car", "Toys", 500));
+        session.save(new Gift("Watch", "Accessories", 2000));
+        session.save(new Gift("Fitness Band", "HealthCare", 3000));
+        session.save(new Gift("Headphones", "Electronics", 1500));
+        session.save(new Gift("Doll", "Toys", 700));
+        session.save(new Gift("Bag", "Accessories", 1200));
+        session.save(new Gift("Thermometer", "HealthCare", 600));
+        session.save(new Gift("Drone", "Electronics", 15000));
+
+
+        tx.commit();
+        session.close();
+        factory.close();
+        System.out.println("10 gift records saved successfully.");
+	}
+
+}

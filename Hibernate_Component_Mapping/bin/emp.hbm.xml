@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+    <hibernate-mapping>
+<class name="com.component.Employee" table="emp103">
+<id  name="eid" type="int" column="eno" >
+<generator class="assigned"></generator>
+</id>
+<property name="eno" length="3" column="enumber" ></property>
+
+
+
+<component name="addr" class="com.component.Address">
+<property name="hno" length="3" column="hno"></property>
+<property name="house" length="10" column="house"></property>
+<property name="stress" length="10" column="stress"></property>
+<property name="city" length="10" column="city"></property>
+</component>
+</class>
+</hibernate-mapping>

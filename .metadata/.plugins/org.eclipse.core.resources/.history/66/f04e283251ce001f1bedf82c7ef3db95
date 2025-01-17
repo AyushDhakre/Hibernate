@@ -1,0 +1,45 @@
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import java.util.ArrayList;
+
+public class MainApp {
+    public static void main(String[] args) {
+        // Configure Hibernate and build session factory
+        Configuration cfg = new Configuration().configure();
+        SessionFactory sessionFactory = cfg.buildSessionFactory();
+        
+        // Open a new session
+        Session session = sessionFactory.openSession();
+        Transaction transaction = session.beginTransaction();
+        
+        // Create a Department
+        Department department = new Department();
+        department.setName("IT Department");
+        
+        // Create Employees
+        Employee emp1 = new Employee();
+        emp1.setName("Alice");
+        emp1.setDepartment(department);
+        
+        Employee emp2 = new Employee();
+        emp2.setName("Bob");
+        emp2.setDepartment(department);
+        
+        // Add Employees to Department
+        department.setEmployees(new ArrayList<>());
+        department.getEmployees().add(emp1);
+        department.getEmployees().add(emp2);
+        
+        // Save Department (employees will be saved automatically)
+        session.save(department);
+        
+        // Commit transaction
+        transaction.commit();
+        session.close();
+        sessionFactory.close();
+        
+        System.out.println("Department and employees saved successfully!");
+    }
+}

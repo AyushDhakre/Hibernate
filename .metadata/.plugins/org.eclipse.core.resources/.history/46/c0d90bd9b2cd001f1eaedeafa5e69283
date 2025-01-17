@@ -1,0 +1,23 @@
+package controller;
+import org.hibernate.*;
+import org.hibernate.cfg.Configuration;
+import com.model.*;
+import java.util.Date;
+
+public class Client1 {
+    public static void main(String[] args) {
+        Configuration cfg = new Configuration();
+        SessionFactory sf = cfg.configure().buildSessionFactory();
+        Session session = sf.openSession();
+        Transaction tx = session.beginTransaction();
+
+        Address address = new Address("Main Road", "Mumbai", "India", "400001");
+        PrimaryStudent ps = new PrimaryStudent(101, "Amit", new Date(), address, "A");
+        SecondaryStudent ss = new SecondaryStudent(102, "Rahul", new Date(), address, 85.5f);
+
+        session.save(ps);
+        session.save(ss);
+        tx.commit();
+        session.close();
+    }
+}

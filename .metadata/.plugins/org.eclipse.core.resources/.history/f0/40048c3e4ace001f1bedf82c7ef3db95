@@ -1,0 +1,59 @@
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="hib_dept")
+public class Department {
+	@Id
+	@GeneratedValue
+	@Column(name="dep_id")
+	private long departmentId;
+	@Column(name="dep_name",length=10)
+	private String departmentName;
+	@OneToMany(mappedBy = "department", cascade=CascadeType_ALL)
+	private Set<Employee>employees;
+
+	public Department(long departmentId, String departmentName, Set<Employee> employees) {
+		super();
+		this.departmentId = departmentId;
+		this.departmentName = departmentName;
+		this.employees = employees;
+	}
+
+	public long getDepartmentId() {
+		return departmentId;
+	}
+
+	public void setDepartmentId(long departmentId) {
+		this.departmentId = departmentId;
+	}
+
+	public String getDepartmentName() {
+		return departmentName;
+	}
+
+	public void setDepartmentName(String departmentName) {
+		this.departmentName = departmentName;
+	}
+
+	public Set<Employee> getEmployees() {
+		return employees;
+	}
+
+	public void setEmployees(Set<Employee> employees) {
+		this.employees = employees;
+	}
+
+	@Override
+	public String toString() {
+		return "Department [departmentId=" + departmentId + ", departmentName=" + departmentName + "]";
+	}
+	
+	
+
+}

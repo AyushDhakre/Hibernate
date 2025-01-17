@@ -1,0 +1,41 @@
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.Transaction;
+import org.hibernate.cfg.Configuration;
+import org.hibernate.service.ServiceRegistry;
+import java.util.HashSet;
+import java.util.Set;
+
+public class MainApp {
+    public static void main(String[] args) {
+        Configuration config = new Configuration().configure();
+        ServiceRegistry registry = new StandardServiceRegistryBuilder()
+                .applySettings(config.getProperties()).build();
+        SessionFactory factory = config.buildSessionFactory(registry);
+        Session session = factory.openSession();
+        Transaction txn = session.beginTransaction();
+
+        // Create Department
+        Department salesDept = new Department();
+        salesDept.setDepartmentName("Sales");
+
+        // Create Employees
+        Employee emp1 = new Employee(0, "John", "Doe", new java.util.Date(), "1234567890", salesDept);
+        Employee emp2 = new Employee(0, "Jane", "Smith", new java.util.Date(), "9876543210", salesDept);
+
+        // Associate employees with the department
+        Set<Employee> employees = new HashSet<>();
+        employees.add(emp1);
+        employees.add(emp2);
+        salesDept.setEmployees(employees);
+
+        // Save Department (employees are saved due to cascading)
+        session.save(salesDept);
+
+        txn.commit();
+        session.close();
+        factory.close();
+
+        System.out.println("One-to-Many mapping example completed successfully!");
+    }
+}

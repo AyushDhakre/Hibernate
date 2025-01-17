@@ -1,0 +1,51 @@
+package com.example.client;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import com.example.sport.Address;
+import com.example.sport.Batsman;
+import com.example.sport.Bowler;
+
+public class Clients1 {
+    public static void main(String[] args) {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("player_pu");
+        EntityManager em = emf.createEntityManager();
+
+        em.getTransaction().begin();
+
+        Batsman batsman1 = new Batsman();
+        batsman1.setPlayerName("Sachin");
+        batsman1.setNumMatch(463);
+        batsman1.setNumRuns(18426);
+        batsman1.setResAddr(new Address("Perry Cross Rd", "Mumbai", "India", "400050"));
+
+        Batsman batsman2 = new Batsman();
+        batsman2.setPlayerName("Virat");
+        batsman2.setNumMatch(254);
+        batsman2.setNumRuns(12040);
+        batsman2.setResAddr(new Address("DLF Phase 1", "Gurgaon", "India", "122002"));
+
+        Bowler bowler1 = new Bowler();
+        bowler1.setPlayerName("Bumrah");
+        bowler1.setNumMatch(70);
+        bowler1.setNumWickets(113);
+        bowler1.setResAddr(new Address("Gokuldham", "Ahmedabad", "India", "380051"));
+
+        Bowler bowler2 = new Bowler();
+        bowler2.setPlayerName("Shami");
+        bowler2.setNumMatch(79);
+        bowler2.setNumWickets(148);
+        bowler2.setResAddr(new Address("Vijay Nagar", "Delhi", "India", "110009"));
+
+        em.persist(batsman1);
+        em.persist(batsman2);
+        em.persist(bowler1);
+        em.persist(bowler2);
+
+        em.getTransaction().commit();
+        em.close();
+        emf.close();
+    }
+}
